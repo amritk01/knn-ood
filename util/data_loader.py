@@ -26,7 +26,7 @@ transform_test = transforms.Compose([
 
 transform_train = transforms.Compose([
     # transforms.RandomCrop(imagesize, padding=4),
-    transforms.RandomResizedCrop(size=imagesize, scale=(0.2, 1.)),
+    transforms.RandomSizedCrop(size=imagesize, scale=(0.2, 1.)),
     transforms.RandomHorizontalFlip(),
     transforms.ToTensor(),
     transforms.Normalize((0.4914, 0.4822, 0.4465),
