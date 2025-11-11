@@ -15,19 +15,24 @@ args = get_args()
 
 os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
 
-cache_name = f"cache/{args.in_dataset}_train_{args.name}_in_alllayers.npy"
-feat_log, score_log, label_log = np.load(cache_name, allow_pickle=True)
+train_feat_log_name = f"cache/{args.in_dataset}_train_{args.name}_feat.npy"
+train_score_log_name = f"cache/{args.in_dataset}_train_{args.name}_score.npy"
+train_label_log_name = f"cache/{args.in_dataset}_train_{args.name}_label.npy"
+feat_log, score_log, label_log = np.load(train_feat_log_name), np.load(train_score_log_name), np.load(train_label_log_name)
 feat_log, score_log = feat_log.T.astype(np.float32), score_log.T.astype(np.float32)
 class_num = score_log.shape[1]
 
-cache_name = f"cache/{args.in_dataset}_val_{args.name}_in_alllayers.npy"
-feat_log_val, score_log_val, label_log_val = np.load(cache_name, allow_pickle=True)
+val_feat_log_name = f"cache/{args.in_dataset}_val_{args.name}_feat.npy"
+val_score_log_name = f"cache/{args.in_dataset}_val_{args.name}_score.npy"
+val_label_log_name = f"cache/{args.in_dataset}_val_{args.name}_label.npy"
+feat_log_val, score_log_val, label_log_val = np.load(val_feat_log_name), np.load(val_score_log_name), np.load(val_label_log_name)
 feat_log_val, score_log_val = feat_log_val.T.astype(np.float32), score_log_val.T.astype(np.float32)
 
 ood_feat_log_all = {}
 for ood_dataset in args.out_datasets:
-    cache_name = f"cache/{ood_dataset}vs{args.in_dataset}_{args.name}_out_alllayers.npy"
-    ood_feat_log, ood_score_log = np.load(cache_name, allow_pickle=True)
+    ood_feat_log_name = f"cache/{ood_dataset}_vs_{args.in_dataset}_{args.name}_feat.npy"
+    ood_score_log_name = f"cache/{ood_dataset}_vs_{args.in_dataset}_{args.name}_score.npy"
+    ood_feat_log, ood_score_log = np.load(ood_feat_log_name), np.load(ood_score_log_name)
     ood_feat_log, ood_score_log = ood_feat_log.T.astype(np.float32), ood_score_log.T.astype(np.float32)
     ood_feat_log_all[ood_dataset] = ood_feat_log
 
