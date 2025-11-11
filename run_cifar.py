@@ -52,7 +52,7 @@ for ood_dataset in args.out_datasets:
 
 index = faiss.IndexFlatL2(ftrain.shape[1])
 index.add(ftrain)
-for K in [50]:
+for K in [10, 20, 50, 100]:
 
     D, _ = index.search(ftest, K)
     scores_in = -D[:,-1]
